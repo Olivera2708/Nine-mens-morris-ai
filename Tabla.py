@@ -185,6 +185,8 @@ def jel_gotovo(igrac1, igrac2, max_igrac):
     return (True, broj)
 
 def moze_da_se_ukloni(igrac, mesto):
+    if mesto not in moja_polja(igrac):
+        return False
     #ako ne cini mill
     if not jel_mill(igrac, mesto)[0]:
         return True
