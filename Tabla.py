@@ -1,6 +1,4 @@
-from curses import window
 from tkinter import *
-from turtle import width
 import customtkinter
 
 class Tabla(Tk):
@@ -15,12 +13,19 @@ class Tabla(Tk):
         self.pocetak = IntVar()
 
         self.title("Mice")
-        self.geometry("800x800")
+        self.geometry("1200x800")
         self.resizable(0, 0)
         self.config(bg="#d9b179")
 
-        canvas = Canvas(self, width=800, height=800, bg="#d9b179")
-        canvas.pack()
+        frame = Frame(self, width=350, height=780, bg="#d9b179")
+        frame.place(x=830, y=10)
+        frame.pack_propagate(False)
+        self.text = Label(frame, text="", bg="#d9b179", fg="#6e583a", font=("Modern", 18), wraplength=340, justify=LEFT)
+        self.text.place(x=0, y=0)
+
+
+        canvas = Canvas(self, width=800, height=800, bg="#d9b179", highlightbackground="#6e583a")
+        canvas.place(x=0, y=0)
 
         canvas.create_rectangle(150, 150, 650, 650, outline="#8f7147", width=8)
         canvas.create_text(400, 80, text="Mice", fill="white", font=('Modern 36 bold'))
@@ -93,6 +98,15 @@ class Tabla(Tk):
 
         self.dugmici[mesto-1].config(image = slika)
         self.dugmici[mesto-1].place(x=self.koordinate_postavi[mesto-1][0], y=self.koordinate_postavi[mesto-1][1], width=60, height=60)
+
+
+    def napisi_poruku(self, string):
+        tekst = self.text.cget("text")
+        tekst += string
+        while tekst.count("\n") > 37:
+            prvi_n = tekst.find("\n")
+            tekst = tekst[prvi_n+1:]
+        self.text.config(text = tekst)
 
 
 #Funkcije za cuvanje trenutnog stanja
@@ -170,4 +184,12 @@ def jel_gotovo(igrac1, igrac2, max_igrac):
                 return (False, broj)
     return (True, broj)
 
-
+def moze_da_se_ukloni(igrac, mesto):
+    #ako ne cini mill
+    if not jel_mill(igrac, mesto)[0]:
+        return True
+    #ako je u mill a pri tome to je jedino dostupno
+    for polje in moja_polja(igrac):
+        if not jel_mill(igrac, polje)[0]:
+            return False
+    return True
