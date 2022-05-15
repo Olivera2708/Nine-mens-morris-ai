@@ -21,12 +21,33 @@ def faza1(i):
     #kada odigra nacrtaj na tabli
     tabla.postavi(1, tabla.sacekaj.get())
 
-    print("{:024b}".format(tabla.a & 0x00ffffff))
-    print("{:024b}".format(tabla.b & 0x00ffffff))
-
 
 def faza2():
-    pass
+    #igrac2, ai
+    for dugme in tabla.dugmici:
+        dugme.config(state="disabled")
+    #provera jel gotovo
+    if jel_gotovo(tabla.a, tabla.b, 2):
+        return False
+    #sledeci = sledeci_potez_faza2()
+    sledeci = (2, 5)
+    tabla.ukloni(2, sledeci[0])
+    tabla.postavi(2, sledeci[1])
+
+    #korisnik, igrac broj 1
+    for dugme in tabla.dugmici:
+        dugme.config(state="normal")
+    #porvera jel gotovo
+    if jel_gotovo(tabla.a, tabla.b, 1):
+        return False
+
+    #sacekaj da ukloni igrac 1
+    tabla.wait_variable(tabla.sacekaj)
+    tabla.ukloni(1, tabla.sacekaj.get())
+
+    #sacekaj da ukloni igrac 1
+    tabla.wait_variable(tabla.sacekaj)
+    tabla.postavi(1, tabla.sacekaj.get())
     
 
 
@@ -35,8 +56,10 @@ tabla = Tabla()
 for i in range(9):
     faza1(i)
 
-while not jel_gotovo()[0]:
-    pass
+nije_kraj = True
+while nije_kraj:
+    nije_kraj = faza2()
+    
 
 
 

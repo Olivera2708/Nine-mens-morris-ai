@@ -1,5 +1,6 @@
 from curses import window
 from tkinter import *
+from turtle import width
 import customtkinter
 
 class Tabla(Tk):
@@ -27,31 +28,7 @@ class Tabla(Tk):
         canvas.create_line(500, 400, 700, 400, fill="#8f7147", width=8)
         canvas.create_line(400, 500, 400, 700, fill="#8f7147", width=8)
 
-        koordinate_prazno = ((80, 680), (380, 680), (680, 680), \
-                    (180, 580), (380, 580), (580, 580), \
-                    (280, 480), (380, 480), (480, 480), \
-                    (80, 380), (180, 380), (280, 380), (480, 380), (580, 380), (680, 380), \
-                    (280, 280), (380, 280), (480, 280), \
-                    (180, 180), (380, 180), (580, 180), \
-                    (80, 80), (380, 80), (680, 80))
-        slika = PhotoImage(file="slike/prazno.png")
-
-        self.dugmici = []
-        i = 0
-
-        for koordinata in koordinate_prazno:
-            i += 1
-            dugme = customtkinter.CTkButton(self, image=slika, text="", fg_color="#d9b179", hover_color="#d9b179", command = lambda i=i: self.sacekaj.set(i))
-            dugme.place(x=koordinata[0], y=koordinata[1], width=40, height=40)
-            self.dugmici.append(dugme)
-
-
-
-    def postavi(self, broj_igraca, mesto):
-        #proveri jel na polju figura od tog igraca pa pomeranje
-
-        #postavi figuru na tablu
-        koordinate_postavi = ((70, 670), (370, 670), (670, 670), \
+        self.koordinate_postavi = ((70, 670), (370, 670), (670, 670), \
                     (170, 570), (370, 570), (570, 570), \
                     (270, 470), (370, 470), (470, 470), \
                     (70, 370), (170, 370), (270, 370), (470, 370), (570, 370), (670, 370), \
@@ -59,14 +36,57 @@ class Tabla(Tk):
                     (170, 170), (370, 170), (570, 170), \
                     (70, 70), (370, 70), (670, 70))
 
-        slika = PhotoImage(file = f"slike/igrac{broj_igraca}.png")
-        dugme = customtkinter.CTkButton(self, image=slika, text="", fg_color="#d9b179", hover_color="#d9b179")
-        dugme.place(x=koordinate_postavi[mesto-1][0], y=koordinate_postavi[mesto-1][1], width=60, height=60)
+        self.koordinate_prazno = ((80, 680), (380, 680), (680, 680), \
+                    (180, 580), (380, 580), (580, 580), \
+                    (280, 480), (380, 480), (480, 480), \
+                    (80, 380), (180, 380), (280, 380), (480, 380), (580, 380), (680, 380), \
+                    (280, 280), (380, 280), (480, 280), \
+                    (180, 180), (380, 180), (580, 180), \
+                    (80, 80), (380, 80), (680, 80))
+
+        self.slika_prazno = PhotoImage(file="slike/prazno.png")
+        self.slika_igrac1 = PhotoImage(file="slike/igrac1.png")
+        self.slika_igrac2 = PhotoImage(file="slike/igrac2.png")
+
+        self.dugmici = []
+        i = 0
+
+        for koordinata in self.koordinate_prazno:
+            i += 1
+            dugme = customtkinter.CTkButton(self, image=self.slika_prazno, text="", fg_color="#d9b179", hover_color="#d9b179", command = lambda i=i: self.sacekaj.set(i))
+            dugme.place(x=koordinata[0], y=koordinata[1], width=40, height=40)
+            self.dugmici.append(dugme)
+
+    
+    def ukloni(self, broj_igraca, mesto):
+        #ukloni figuru sa table
+        self.dugmici[6].config(image=self.slika_igrac1)
+        self.dugmici[6].place(width=60, height=60)
+
+        self.dugmici[6].config(image=self.slika_prazno)
+        self.dugmici[6].place(width=40, height=40)
+
+        print(mesto)
+        self.dugmici[mesto-1].config(image = self.slika_prazno)
+        self.dugmici[mesto-1].place(x=self.koordinate_prazno[mesto-1][0], y=self.koordinate_prazno[mesto-1][1], width=40, height=40)
+        if broj_igraca == 1:
+            self.a = ukloni(self.a, mesto)
+        else:
+            self.b = ukloni(self.b, mesto)
+
+
+    def postavi(self, broj_igraca, mesto):
+        #postavi figuru na tablu
         if broj_igraca == 1:
             self.a = dodaj(self.a, mesto)
+            slika = self.slika_igrac1
         else:
             self.b = dodaj(self.b, mesto)
+            slika = self.slika_igrac2 
 
+        self.dugmici[mesto-1].config(image = slika)
+        self.dugmici[mesto-1].place(x=self.koordinate_postavi[mesto-1][0], y=self.koordinate_postavi[mesto-1][1], width=60, height=60)
+        
 
 #Funkcije za cuvanje trenutnog stanja
 
