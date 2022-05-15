@@ -67,6 +67,7 @@ class Tabla(Tk):
         self.slika_prazno = PhotoImage(file="slike/prazno.png")
         self.slika_igrac1 = PhotoImage(file="slike/igrac1.png")
         self.slika_igrac2 = PhotoImage(file="slike/igrac2.png")
+        self.slika_privremena = PhotoImage(file="slike/oznacena.png")
 
         self.dugmici = []
         i = 0
@@ -85,6 +86,10 @@ class Tabla(Tk):
             self.a = ukloni(self.a, mesto)
         else:
             self.b = ukloni(self.b, mesto)
+
+    def postavi_privremen(self, mesto):
+        self.dugmici[mesto-1].config(image = self.slika_privremena)
+        self.dugmici[mesto-1].place(x=self.koordinate_postavi[mesto-1][0], y=self.koordinate_postavi[mesto-1][1], width=60, height=60)
 
 
     def postavi(self, broj_igraca, mesto):
