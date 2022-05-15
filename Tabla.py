@@ -12,6 +12,7 @@ class Tabla(Tk):
         self.b = 0b000000000000000000000000
 
         self.sacekaj = IntVar()
+        self.pocetak = IntVar()
 
         self.title("Mice")
         self.geometry("800x800")
@@ -20,6 +21,20 @@ class Tabla(Tk):
 
         canvas = Canvas(self, width=800, height=800, bg="#d9b179")
         canvas.pack()
+
+        canvas.create_rectangle(150, 150, 650, 650, outline="#8f7147", width=8)
+        canvas.create_text(400, 80, text="Mice", fill="white", font=('Modern 36 bold'))
+        canvas.create_text(400, 300, text="Želim da počnem", fill="white", font=('Modern 24 bold'))
+        korisnik_prvi = customtkinter.CTkButton(bg_color="#d9b179", fg_color="#8f7147", hover_color="#785a31", text="Prvi", text_font=('Modern 20 bold'), command=lambda: self.pocetak.set(1))
+        korisnik_prvi.place(x=300, y=380, width=200, height=36)
+        korisnik_drugi = customtkinter.CTkButton(bg_color="#d9b179", fg_color="#8f7147", hover_color="#785a31", text="Drugi", text_font=('Modern 20 bold'), command=lambda: self.pocetak.set(2))
+        korisnik_drugi.place(x=300, y=450, width=200, height=36)
+
+        self.wait_variable(self.pocetak)
+
+        korisnik_prvi.destroy()
+        korisnik_drugi.destroy()
+        canvas.delete("all")
         canvas.create_rectangle(100, 100, 700, 700, outline="#8f7147", width=8)
         canvas.create_rectangle(200, 200, 600, 600, outline="#8f7147", width=8)
         canvas.create_rectangle(300, 300, 500, 500, outline="#8f7147", width=8)
@@ -59,14 +74,6 @@ class Tabla(Tk):
 
     
     def ukloni(self, broj_igraca, mesto):
-        #ukloni figuru sa table
-        self.dugmici[6].config(image=self.slika_igrac1)
-        self.dugmici[6].place(width=60, height=60)
-
-        self.dugmici[6].config(image=self.slika_prazno)
-        self.dugmici[6].place(width=40, height=40)
-
-        print(mesto)
         self.dugmici[mesto-1].config(image = self.slika_prazno)
         self.dugmici[mesto-1].place(x=self.koordinate_prazno[mesto-1][0], y=self.koordinate_prazno[mesto-1][1], width=40, height=40)
         if broj_igraca == 1:
@@ -86,7 +93,7 @@ class Tabla(Tk):
 
         self.dugmici[mesto-1].config(image = slika)
         self.dugmici[mesto-1].place(x=self.koordinate_postavi[mesto-1][0], y=self.koordinate_postavi[mesto-1][1], width=60, height=60)
-        
+
 
 #Funkcije za cuvanje trenutnog stanja
 
