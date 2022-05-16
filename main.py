@@ -29,17 +29,28 @@ def faza1_igrac():
         tabla.ukloni(2, mesto)
 
 
-def faza1_ai():
+def faza1_ai(i):
     for dugme in tabla.dugmici:
         dugme.config(state="disabled")
 
-    #sledeci = sledeci_potez()
-    sledeci = i+1
+    sledeci = sledeci_potez_faza1(tabla.a, tabla.b, 4, i, True)
     tabla.postavi(2, sledeci)
+    #ukloni protivniku figuru ako je mill
+    if jel_mill(tabla.b, sledeci)[0]:
+        for j in moja_polja(tabla.a):
+            if moze_da_se_ukloni(tabla.a, j):
+                tabla.ukloni(1, j)
+                tabla.napisi_poruku(f"Kompjuter je uklonio vašu figuru\n")
+                break
+    
 
-def faza1(prva, druga):
+def faza1_2(prva, druga, *args):
+    druga(*args)
     prva()
-    druga()
+
+def faza1_1(prva, druga, *args):
+    prva()
+    druga(*args)
 
 def faza2_igrac():
     #korisnik, igrac broj 1
@@ -81,7 +92,7 @@ def faza2_igrac():
         tabla.ukloni(2, mesto)
 
     #porvera jel gotovo
-    if jel_gotovo(tabla.a, tabla.b, 1)[0]:
+    if jel_gotovo(tabla.a, tabla.b, 1):
         tabla.napisi_poruku("POBEDILI STE")
         return False
     return True
@@ -90,13 +101,20 @@ def faza2_ai():
     for dugme in tabla.dugmici:
         dugme.config(state="disabled")
     
-    #sledeci = sledeci_potez_faza2()
-    sledeci = (9, 13)
+    sledeci = sledeci_potez_faza2(tabla.a, tabla.b, 3, True)
     tabla.ukloni(2, sledeci[0])
     tabla.postavi(2, sledeci[1])
 
+    #ukloni protivniku figuru ako je mill
+    if jel_mill(tabla.b, sledeci[1])[0]:
+        for j in moja_polja(tabla.a):
+            if moze_da_se_ukloni(tabla.a, j):
+                tabla.ukloni(1, j)
+                tabla.napisi_poruku(f"Kompjuter je uklonio vašu figuru\n")
+                break
+
     #provera jel gotovo
-    if jel_gotovo(tabla.a, tabla.b, 2)[0]:
+    if jel_gotovo(tabla.a, tabla.b, 2):
         tabla.napisi_poruku("IZGUBILI STE")
         return False
     return True
@@ -111,6 +129,15 @@ def faza2(prva, druga):
     if not jos_se_igra:
         return False
     return True
+
+def gotovo():
+    if jel_gotovo(tabla.a, tabla.b, 2):
+        tabla.napisi_poruku("IZGUBILI STE")
+        return False
+    if jel_gotovo(tabla.a, tabla.b, 1):
+        tabla.napisi_poruku("POBEDILI STE")
+        return False
+    return True
     
 
 ######IGRA######
@@ -121,13 +148,19 @@ tabla = Tabla()
 if tabla.pocetak.get() == 1:
     tabla.napisi_poruku("PRVA FAZA\n")
     for i in range(9):
-        faza1(faza1_igrac, faza1_ai)
+        faza1_1(faza1_igrac, faza1_ai, i)
     tabla.napisi_poruku("DRUGA FAZA\n")
+    #jel gotovo
+    nije_kraj = gotovo()
     while nije_kraj:
         nije_kraj = faza2(faza2_igrac, faza2_ai)
 else:
+    tabla.napisi_poruku("PRVA FAZA\n")
     for i in range(9):
-        faza1(faza1_ai, faza1_igrac)
+        faza1_2(faza1_igrac, faza1_ai, i)
+    tabla.napisi_poruku("DRUGA FAZA\n")
+    #jel gotovo
+    nije_kraj = gotovo()
     while nije_kraj:
         nije_kraj = faza2(faza2_ai, faza2_igrac)
 

@@ -87,6 +87,7 @@ class Tabla(Tk):
         else:
             self.b = ukloni(self.b, mesto)
 
+
     def postavi_privremen(self, mesto):
         self.dugmici[mesto-1].config(image = self.slika_privremena)
         self.dugmici[mesto-1].place(x=self.koordinate_postavi[mesto-1][0], y=self.koordinate_postavi[mesto-1][1], width=60, height=60)
@@ -167,27 +168,25 @@ def jel_mill(igrac, mesto):
                ((1,10),(23,24)), ((22,24),(17,20)), ((22,23),(3,15)))
     for pokusaj in svi_mill[mesto-1]:
         if not jel_prazno(igrac, pokusaj[0]) and not jel_prazno(igrac, pokusaj[1]):
-            return True, pokusaj
-    return False, 0
+            return (True, pokusaj)
+    return (False, 0)
 
 def jel_gotovo(igrac1, igrac2, max_igrac):
     if postavljenih(igrac1) <= 2:
-        return (True, 2)
+        return True
     if postavljenih(igrac2) <= 2:
-        return(True, 1)
+        return True
 
     if max_igrac:
         igrac_na_potezu = igrac1
-        broj = 1
     else:
         igrac_na_potezu = igrac2
-        broj = 2
 
     for i in range(1, 25):
         if not jel_prazno(igrac_na_potezu, i):
             if moguc_potez(igrac1, igrac2, i) != []:
-                return (False, broj)
-    return (True, broj)
+                return False
+    return True
 
 def moze_da_se_ukloni(igrac, mesto):
     if mesto not in moja_polja(igrac):
