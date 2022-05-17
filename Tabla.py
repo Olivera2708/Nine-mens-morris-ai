@@ -78,6 +78,8 @@ class Tabla(Tk):
             dugme.place(x=koordinata[0], y=koordinata[1], width=40, height=40)
             self.dugmici.append(dugme)
 
+        self.update()
+
     
     def ukloni(self, broj_igraca, mesto):
         self.dugmici[mesto-1].config(image = self.slika_prazno)
@@ -109,7 +111,7 @@ class Tabla(Tk):
     def napisi_poruku(self, string):
         tekst = self.text.cget("text")
         tekst += string
-        while tekst.count("\n") > 37:
+        while tekst.count("\n") > 36:
             prvi_n = tekst.find("\n")
             tekst = tekst[prvi_n+1:]
         self.text.config(text = tekst)
@@ -164,12 +166,25 @@ def jel_mill(igrac, mesto):
                ((8,9),(12,16)), ((7,9),(2,5)), ((7,8),(13,18)), \
                ((1,22),(11,12)), ((10,12),(4,19)), ((10,11),(7,16)), ((9,18),(14,15)), ((6,21),(13,15)), ((13,14),(3,24)), \
                ((7,12),(17,18)), ((16,18),(20,23)), ((16,17),(9,13)), \
-               ((4,11),(20,21)), ((19,21),(17,23)), ((19,20),(6,11)), \
+               ((4,11),(20,21)), ((19,21),(17,23)), ((19,20),(6,14)), \
                ((1,10),(23,24)), ((22,24),(17,20)), ((22,23),(3,15)))
     for pokusaj in svi_mill[mesto-1]:
         if not jel_prazno(igrac, pokusaj[0]) and not jel_prazno(igrac, pokusaj[1]):
             return (True, pokusaj)
     return (False, 0)
+
+def jel_dupli_mill(igrac, mesto):
+    svi_mill = (((10,22),(2,3)), ((1,3),(5,8)), ((1,2),(15,24)), \
+               ((11,19),(5,6)), ((4,6),(2,8)), ((4,5),(14,21)), \
+               ((8,9),(12,16)), ((7,9),(2,5)), ((7,8),(13,18)), \
+               ((1,22),(11,12)), ((10,12),(4,19)), ((10,11),(7,16)), ((9,18),(14,15)), ((6,21),(13,15)), ((13,14),(3,24)), \
+               ((7,12),(17,18)), ((16,18),(20,23)), ((16,17),(9,13)), \
+               ((4,11),(20,21)), ((19,21),(17,23)), ((19,20),(6,14)), \
+               ((1,10),(23,24)), ((22,24),(17,20)), ((22,23),(3,15)))
+    
+    if not jel_prazno(igrac, svi_mill[mesto-1][0][0]) and not jel_prazno(igrac, svi_mill[mesto-1][0][1]) and not jel_prazno(igrac, svi_mill[mesto-1][1][0]) and not jel_prazno(igrac, svi_mill[mesto-1][1][1]):
+        return True, svi_mill[mesto-1]
+    return False, 0
 
 def jel_gotovo(igrac1, igrac2, max_igrac):
     if postavljenih(igrac1) <= 2:

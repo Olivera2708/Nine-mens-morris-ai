@@ -7,11 +7,22 @@ def sledeci_potez_faza1(a, b, dubina, broj_postavljenih, max_igrac):
         najbolji = None #najbolji potez
         for i in moja_polja(slobodne_pozicije(a, b)):
             bx = b
+            ax = a
             bx = dodaj(bx, i)
-            rezultat = minimax_faza1(a, bx, dubina-1, float('-inf'), float('inf'), False, broj_postavljenih+1)
-            if rezultat > maksimum:
-                maksimum = rezultat
-                najbolji = i
+            #provera jel mil, ako jeste ukloni protivniku jedan
+            if jel_mill(bx, i)[0]:
+                for j in moja_polja(a):
+                    if moze_da_se_ukloni(a, j):
+                        ax = ukloni(ax, j)
+                        rezultat = minimax_faza1(ax, bx, dubina-1, float('-inf'), float('inf'), False, broj_postavljenih+1) + 18
+                        if rezultat > maksimum:
+                            maksimum = rezultat
+                            najbolji = (i, j)
+            else:
+                rezultat = minimax_faza1(a, bx, dubina-1, float('-inf'), float('inf'), False, broj_postavljenih+1)
+                if rezultat > maksimum:
+                    maksimum = rezultat
+                    najbolji = (i, 0)
     return najbolji
 
 def minimax_faza1(a, b, dubina, alfa, beta, max_igrac, broj_postavljenih):
@@ -32,11 +43,17 @@ def minimax_faza1(a, b, dubina, alfa, beta, max_igrac, broj_postavljenih):
                 for j in moja_polja(a):
                     if moze_da_se_ukloni(a, j):
                         ax = ukloni(ax, j)
-            rezultat = minimax_faza1(a, bx, dubina-1, alfa, beta, False, broj_postavljenih+1)
-            maksimum = max(rezultat, maksimum)
-            alfa = max(alfa, rezultat)
-            if beta <= alfa:
-                break
+                        rezultat = minimax_faza1(ax, bx, dubina-1, alfa, beta, False, broj_postavljenih+1) + 18
+                        maksimum = max(rezultat, maksimum)
+                        alfa = max(alfa, rezultat)
+                        if beta <= alfa:
+                            break
+            else:
+                rezultat = minimax_faza1(a, bx, dubina-1, alfa, beta, False, broj_postavljenih+1)
+                maksimum = max(rezultat, maksimum)
+                alfa = max(alfa, rezultat)
+                if beta <= alfa:
+                    break
         return maksimum
 
     else:
@@ -50,11 +67,17 @@ def minimax_faza1(a, b, dubina, alfa, beta, max_igrac, broj_postavljenih):
                 for j in moja_polja(b):
                     if moze_da_se_ukloni(b, j):
                         bx = ukloni(bx, j)
-            rezultat = minimax_faza1(ax, b, dubina-1, alfa, beta, True, broj_postavljenih+1)
-            minimum = min(rezultat, minimum)
-            beta = min(beta, rezultat)
-            if beta <= alfa:
-                break
+                        rezultat = minimax_faza1(ax, bx, dubina-1, alfa, beta, True, broj_postavljenih+1) + 18
+                        minimum = min(rezultat, minimum)
+                        beta = min(beta, rezultat)
+                        if beta <= alfa:
+                            break
+            else:
+                rezultat = minimax_faza1(ax, b, dubina-1, alfa, beta, True, broj_postavljenih+1)
+                minimum = min(rezultat, minimum)
+                beta = min(beta, rezultat)
+                if beta <= alfa:
+                    break
         return minimum
 
 
@@ -75,10 +98,16 @@ def sledeci_potez_faza2(a, b, dubina, max_igrac):
                         for k in moja_polja(a):
                             if moze_da_se_ukloni(a, k):
                                 ax = ukloni(ax, k)
-                    rezultat = minimax_faza2(a, bx, dubina-1, float('-inf'), float('inf'), False)
-                    if rezultat > maksimum:
-                        maksimum = rezultat
-                        najbolji = (i, j)
+                                rezultat = minimax_faza2(ax, bx, dubina-1, float('-inf'), float('inf'), False) + 14
+                                if rezultat > maksimum:
+                                    maksimum = rezultat
+                                    najbolji = (i, j, k)
+
+                    else:
+                        rezultat = minimax_faza2(a, bx, dubina-1, float('-inf'), float('inf'), False)
+                        if rezultat > maksimum:
+                            maksimum = rezultat
+                            najbolji = (i, j, 0)
     return najbolji
 
 
@@ -107,11 +136,17 @@ def minimax_faza2(a, b, dubina, alfa, beta, max_igrac):
                         for j in moja_polja(a):
                             if moze_da_se_ukloni(a, j):
                                 ax = ukloni(ax, j)
-                    rezultat = minimax_faza2(ax, bx, dubina-1, alfa, beta, False)
-                    maksimum = max(rezultat, maksimum)
-                    alfa = max(alfa, rezultat)
-                    if beta <= alfa:
-                        break
+                                rezultat = minimax_faza2(ax, bx, dubina-1, alfa, beta, False) + 14
+                                maksimum = max(rezultat, maksimum)
+                                alfa = max(alfa, rezultat)
+                                if beta <= alfa:
+                                    break
+                    else:
+                        rezultat = minimax_faza2(ax, bx, dubina-1, alfa, beta, False)
+                        maksimum = max(rezultat, maksimum)
+                        alfa = max(alfa, rezultat)
+                        if beta <= alfa:
+                            break
         return maksimum
     
     else:
@@ -129,10 +164,16 @@ def minimax_faza2(a, b, dubina, alfa, beta, max_igrac):
                         for j in moja_polja(b):
                             if moze_da_se_ukloni(b, j):
                                 bx = ukloni(bx, j)
-                    rezultat = minimax_faza2(ax, bx, dubina-1, alfa, beta, True)
-                    minimum = min(rezultat, minimum)
-                    beta = min(beta, rezultat)
-                    if beta <= alfa:
-                        break
+                                rezultat = minimax_faza2(ax, bx, dubina-1, alfa, beta, True) + 14
+                                minimum = min(rezultat, minimum)
+                                beta = min(beta, rezultat)
+                                if beta <= alfa:
+                                    break
+                    else:
+                        rezultat = minimax_faza2(ax, bx, dubina-1, alfa, beta, True)
+                        minimum = min(rezultat, minimum)
+                        beta = min(beta, rezultat)
+                        if beta <= alfa:
+                            break
         return minimum
     

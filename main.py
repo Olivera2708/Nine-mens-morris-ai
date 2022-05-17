@@ -1,5 +1,6 @@
 from Tabla import *
 from minimax import *
+from timeit import default_timer as timer
 
 def faza1_igrac():
     for dugme in tabla.dugmici:
@@ -28,34 +29,47 @@ def faza1_igrac():
             mesto = tabla.sacekaj.get()
         tabla.ukloni(2, mesto)
 
+    tabla.update()
+
 
 def faza1_ai(i):
     for dugme in tabla.dugmici:
         dugme.config(state="disabled")
 
-    sledeci = sledeci_potez_faza1(tabla.a, tabla.b, 4, i, True)
-    tabla.postavi(2, sledeci)
+    start = timer()
+    sledeci = sledeci_potez_faza1(tabla.a, tabla.b, 3, i, True)
+    end = timer()
+    print(f"Vreme igranja kompjutera {end-start}")
+    tabla.postavi(2, sledeci[0])
     #ukloni protivniku figuru ako je mill
-    if jel_mill(tabla.b, sledeci)[0]:
-        for j in moja_polja(tabla.a):
-            if moze_da_se_ukloni(tabla.a, j):
-                tabla.ukloni(1, j)
-                tabla.napisi_poruku(f"Kompjuter je uklonio vašu figuru\n")
-                break
+    if jel_mill(tabla.b, sledeci[0])[0]:
+        tabla.ukloni(1, sledeci[1])
+        tabla.napisi_poruku(f"Kompjuter je uklonio vašu figuru\n")
+                
     
 
 def faza1_2(prva, druga, *args):
+    tabla.napisi_poruku("Protivnik je na redu\n")
+    tabla.update()
     druga(*args)
+    tabla.napisi_poruku("Vi ste na redu\n")
     prva()
 
 def faza1_1(prva, druga, *args):
+    tabla.napisi_poruku("Vi ste na redu\n")
     prva()
+    tabla.napisi_poruku("Protivnik je na redu\n")
+    tabla.update()
     druga(*args)
+
 
 def faza2_igrac():
     #korisnik, igrac broj 1
     for dugme in tabla.dugmici:
         dugme.config(state="normal")
+
+    tabla.napisi_poruku("Vi ste na redu\n")
+    tabla.update()
 
     #sacekaj da ukloni igrac 1
     tabla.wait_variable(tabla.sacekaj)
@@ -91,6 +105,8 @@ def faza2_igrac():
             mesto = tabla.sacekaj.get()
         tabla.ukloni(2, mesto)
 
+    tabla.update()
+
     #porvera jel gotovo
     if jel_gotovo(tabla.a, tabla.b, 1):
         tabla.napisi_poruku("POBEDILI STE")
@@ -100,18 +116,22 @@ def faza2_igrac():
 def faza2_ai():
     for dugme in tabla.dugmici:
         dugme.config(state="disabled")
+
+    tabla.napisi_poruku("Protivnik je na redu\n")
+    tabla.update()
     
-    sledeci = sledeci_potez_faza2(tabla.a, tabla.b, 3, True)
+    start = timer()
+    sledeci = sledeci_potez_faza2(tabla.a, tabla.b, 5, True)
+    end = timer()
+    print(f"Vreme igranja kompjutera {end-start}")
     tabla.ukloni(2, sledeci[0])
     tabla.postavi(2, sledeci[1])
 
     #ukloni protivniku figuru ako je mill
     if jel_mill(tabla.b, sledeci[1])[0]:
-        for j in moja_polja(tabla.a):
-            if moze_da_se_ukloni(tabla.a, j):
-                tabla.ukloni(1, j)
-                tabla.napisi_poruku(f"Kompjuter je uklonio vašu figuru\n")
-                break
+        tabla.ukloni(1, sledeci[2])
+        tabla.napisi_poruku(f"Kompjuter je uklonio vašu figuru\n")
+        
 
     #provera jel gotovo
     if jel_gotovo(tabla.a, tabla.b, 2):
@@ -144,6 +164,7 @@ def gotovo():
 
 nije_kraj = True
 tabla = Tabla()
+max_poteza = 50
 
 if tabla.pocetak.get() == 1:
     tabla.napisi_poruku("PRVA FAZA\n")
@@ -152,7 +173,8 @@ if tabla.pocetak.get() == 1:
     tabla.napisi_poruku("DRUGA FAZA\n")
     #jel gotovo
     nije_kraj = gotovo()
-    while nije_kraj:
+    while nije_kraj or max_poteza == 0:
+        max_poteza -= 1
         nije_kraj = faza2(faza2_igrac, faza2_ai)
 else:
     tabla.napisi_poruku("PRVA FAZA\n")
@@ -161,7 +183,8 @@ else:
     tabla.napisi_poruku("DRUGA FAZA\n")
     #jel gotovo
     nije_kraj = gotovo()
-    while nije_kraj:
+    while nije_kraj or max_poteza == 0:
+        max_poteza -= 1
         nije_kraj = faza2(faza2_ai, faza2_igrac)
 
 tabla.mainloop()
