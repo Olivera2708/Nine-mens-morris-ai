@@ -40,7 +40,7 @@ def faza1_ai(i):
     start = timer()
     sledeci = sledeci_potez_faza1(tabla.a, tabla.b, 3, i, True)
     end = timer()
-    print(f"Vreme igranja kompjutera {end-start}")
+    print(f"Kompjuter vreme -> {end-start}")
     tabla.postavi(2, sledeci[0])
     #ukloni protivniku figuru ako je mill
     if jel_mill(tabla.b, sledeci[0])[0]:
@@ -124,7 +124,7 @@ def faza2_ai():
     start = timer()
     sledeci = sledeci_potez_faza2(tabla.a, tabla.b, 4, True)
     end = timer()
-    print(f"Vreme igranja kompjutera {end-start}")
+    print(f"Kompjuter vreme -> {end-start}")
     tabla.ukloni(2, sledeci[0])
     tabla.postavi(2, sledeci[1])
 

@@ -2,20 +2,18 @@ from Tabla import *
 from hashmap import LinearHashMap
 
 
-hash_map_1 = LinearHashMap()
-hash_map_1[1] = 26
-hash_map_1[2] = 1
-hash_map_1[3] = 6
-hash_map_1[4] = 12
-hash_map_1[5] = 7
-
-hash_map_2 = LinearHashMap()
-hash_map_2[1] = 43
-hash_map_2[2] = 10
-hash_map_2[3] = 8
-hash_map_2[4] = 7
-hash_map_2[5] = 42
-hash_map_2[6] = 1086
+koeficijent = LinearHashMap()
+koeficijent["millovi1"] = 26
+koeficijent["blokirane1"] = 1
+koeficijent["figure1"] = 6
+koeficijent["potencijalni mill"] = 12
+koeficijent["dupli potencijalni mill"] = 7
+koeficijent["millovi2"] = 43
+koeficijent["blokirane2"] = 10
+koeficijent["figure2"] = 8
+koeficijent["otvoren"] = 7
+koeficijent["dupli mill"] = 42
+koeficijent["pobeda"] = 1086
 
 #broj tri povezane od igraca
 def moj_broj_mill(ja):
@@ -96,11 +94,11 @@ def pobeda(ja, protivnik):
 
 
 def heruistika_faza1(igrac1, igrac2):
-    broj1 = hash_map_1[1] * moj_broj_mill(igrac1) + hash_map_1[2] * broj_blokiranih_figura_protivnika(igrac2, igrac1) + hash_map_1[3] * moj_broj_figura(igrac1) + hash_map_1[4] * potencijalni_mill(igrac1, igrac2) + hash_map_1[5] * dupli_potencijalni_mill(igrac2, igrac1)
-    broj2 = hash_map_1[1] * moj_broj_mill(igrac2) + hash_map_1[2] * broj_blokiranih_figura_protivnika(igrac1, igrac2) + hash_map_1[3] * moj_broj_figura(igrac2) + hash_map_1[4] * potencijalni_mill(igrac2, igrac1) + hash_map_1[5] * dupli_potencijalni_mill(igrac1, igrac2)
-    return broj1- broj2
+    broj1 = koeficijent["millovi1"] * moj_broj_mill(igrac1) + koeficijent["blokirane1"] * broj_blokiranih_figura_protivnika(igrac2, igrac1) + koeficijent["figure1"] * moj_broj_figura(igrac1) + koeficijent["potencijalni mill"] * potencijalni_mill(igrac1, igrac2) + koeficijent["dupli potencijalni mill"] * dupli_potencijalni_mill(igrac2, igrac1)
+    broj2 = koeficijent["millovi1"] * moj_broj_mill(igrac2) + koeficijent["blokirane1"] * broj_blokiranih_figura_protivnika(igrac1, igrac2) + koeficijent["figure1"] * moj_broj_figura(igrac2) + koeficijent["potencijalni mill"] * potencijalni_mill(igrac2, igrac1) + koeficijent["dupli potencijalni mill"] * dupli_potencijalni_mill(igrac1, igrac2)
+    return broj1 - broj2
 
 def heruistika_faza2(igrac1, igrac2):
-    broj1 = hash_map_2[1] * moj_broj_mill(igrac1) + hash_map_2[2] * broj_blokiranih_figura_protivnika(igrac2, igrac1) + hash_map_2[3] * moj_broj_figura(igrac1) + hash_map_2[4] * otvoren_mill(igrac1, igrac2) + hash_map_2[5] * dupli_mill(igrac1) + hash_map_2[6] * pobeda(igrac2, igrac1)
-    broj2 = hash_map_2[1] * moj_broj_mill(igrac2) + hash_map_2[2] * broj_blokiranih_figura_protivnika(igrac1, igrac2) + hash_map_2[3] * moj_broj_figura(igrac2) + hash_map_2[4] * otvoren_mill(igrac2, igrac1) + hash_map_2[5] * dupli_mill(igrac2) + hash_map_2[6] * pobeda(igrac1, igrac2)
-    return broj1-broj2
+    broj1 = koeficijent["millovi2"] * moj_broj_mill(igrac1) + koeficijent["blokirane2"] * broj_blokiranih_figura_protivnika(igrac2, igrac1) + koeficijent["figure2"] * moj_broj_figura(igrac1) + koeficijent["otvoren"] * otvoren_mill(igrac1, igrac2) + koeficijent["dupli mill"] * dupli_mill(igrac1) + koeficijent["pobeda"] * pobeda(igrac2, igrac1)
+    broj2 = koeficijent["millovi2"] * moj_broj_mill(igrac2) + koeficijent["blokirane2"] * broj_blokiranih_figura_protivnika(igrac1, igrac2) + koeficijent["figure2"] * moj_broj_figura(igrac2) + koeficijent["otvoren"] * otvoren_mill(igrac2, igrac1) + koeficijent["dupli mill"] * dupli_mill(igrac2) + koeficijent["pobeda"] * pobeda(igrac1, igrac2)
+    return broj1 - broj2

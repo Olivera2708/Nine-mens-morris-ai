@@ -1,7 +1,5 @@
 import random
-
 from map import MapElement
-
 
 class HashMap(object):
     def __init__(self, capacity=8):
