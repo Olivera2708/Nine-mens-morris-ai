@@ -115,11 +115,10 @@ def minimax_faza2(a, b, dubina, alfa, beta, max_igrac):
     #provera jel gotovo
     if dubina == 0:
         return heruistika_faza2(b, a)
-    if jel_gotovo(a, b, max_igrac):
-        if max_igrac == 1:
-            return -100000
-        else:
-            return 100000
+    if jel_gotovo(a, b):
+        return dubina + 100000
+    if jel_gotovo(b, a):
+        return -dubina - 100000
 
     if max_igrac:
         maksimum = float('-inf')

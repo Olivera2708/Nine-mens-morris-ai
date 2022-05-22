@@ -186,22 +186,15 @@ def jel_dupli_mill(igrac, mesto):
         return True, svi_mill[mesto-1]
     return False, 0
 
-def jel_gotovo(igrac1, igrac2, max_igrac):
-    if postavljenih(igrac1) <= 2:
-        return True
-    if postavljenih(igrac2) <= 2:
+def jel_gotovo(igrac1, igrac2):
+    if postavljenih(igrac1) == 2:
         return True
 
-    if max_igrac:
-        igrac_na_potezu = igrac1
-    else:
-        igrac_na_potezu = igrac2
-
-    for i in range(1, 25):
-        if not jel_prazno(igrac_na_potezu, i):
-            if moguc_potez(igrac1, igrac2, i) != []:
-                return False
+    for i in moja_polja(igrac1):
+        if moguc_potez(igrac1, igrac2, i) != []:
+            return False
     return True
+
 
 def moze_da_se_ukloni(igrac, mesto):
     if mesto not in moja_polja(igrac):

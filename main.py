@@ -108,7 +108,7 @@ def faza2_igrac():
     tabla.update()
 
     #porvera jel gotovo
-    if jel_gotovo(tabla.a, tabla.b, 1):
+    if jel_gotovo(tabla.b, tabla.a):
         tabla.napisi_poruku("POBEDILI STE")
         return False
     return True
@@ -121,7 +121,7 @@ def faza2_ai():
     tabla.update()
     
     start = timer()
-    sledeci = sledeci_potez_faza2(tabla.a, tabla.b, 5, True)
+    sledeci = sledeci_potez_faza2(tabla.a, tabla.b, 4, True)
     end = timer()
     print(f"Vreme igranja kompjutera {end-start}")
     tabla.ukloni(2, sledeci[0])
@@ -134,7 +134,7 @@ def faza2_ai():
         
 
     #provera jel gotovo
-    if jel_gotovo(tabla.a, tabla.b, 2):
+    if jel_gotovo(tabla.a, tabla.b):
         tabla.napisi_poruku("IZGUBILI STE")
         return False
     return True
@@ -151,10 +151,10 @@ def faza2(prva, druga):
     return True
 
 def gotovo():
-    if jel_gotovo(tabla.a, tabla.b, 2):
+    if jel_gotovo(tabla.b, tabla.a):
         tabla.napisi_poruku("IZGUBILI STE")
         return False
-    if jel_gotovo(tabla.a, tabla.b, 1):
+    if jel_gotovo(tabla.a, tabla.b):
         tabla.napisi_poruku("POBEDILI STE")
         return False
     return True
