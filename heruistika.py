@@ -1,4 +1,21 @@
 from Tabla import *
+from hashmap import LinearHashMap
+
+
+hash_map_1 = LinearHashMap()
+hash_map_1[1] = 26
+hash_map_1[2] = 1
+hash_map_1[3] = 6
+hash_map_1[4] = 12
+hash_map_1[5] = 7
+
+hash_map_2 = LinearHashMap()
+hash_map_2[1] = 43
+hash_map_2[2] = 10
+hash_map_2[3] = 8
+hash_map_2[4] = 7
+hash_map_2[5] = 42
+hash_map_2[6] = 1086
 
 #broj tri povezane od igraca
 def moj_broj_mill(ja):
@@ -78,25 +95,12 @@ def pobeda(ja, protivnik):
     return 0
 
 
-#####test1###### DODAJ 14
 def heruistika_faza1(igrac1, igrac2):
-    broj1 = 26 * moj_broj_mill(igrac1) + 1 * broj_blokiranih_figura_protivnika(igrac2, igrac1) + 6 * moj_broj_figura(igrac1) + 12 * potencijalni_mill(igrac1, igrac2) + 7 * dupli_potencijalni_mill(igrac2, igrac1)
-    broj2 = 26 * moj_broj_mill(igrac2) + 1 * broj_blokiranih_figura_protivnika(igrac1, igrac2) + 6 * moj_broj_figura(igrac2) + 12 * potencijalni_mill(igrac2, igrac1) + 7 * dupli_potencijalni_mill(igrac1, igrac2)
+    broj1 = hash_map_1[1] * moj_broj_mill(igrac1) + hash_map_1[2] * broj_blokiranih_figura_protivnika(igrac2, igrac1) + hash_map_1[3] * moj_broj_figura(igrac1) + hash_map_1[4] * potencijalni_mill(igrac1, igrac2) + hash_map_1[5] * dupli_potencijalni_mill(igrac2, igrac1)
+    broj2 = hash_map_1[1] * moj_broj_mill(igrac2) + hash_map_1[2] * broj_blokiranih_figura_protivnika(igrac1, igrac2) + hash_map_1[3] * moj_broj_figura(igrac2) + hash_map_1[4] * potencijalni_mill(igrac2, igrac1) + hash_map_1[5] * dupli_potencijalni_mill(igrac1, igrac2)
     return broj1- broj2
 
 def heruistika_faza2(igrac1, igrac2):
-    broj1 = 43 * moj_broj_mill(igrac1) + 10 * broj_blokiranih_figura_protivnika(igrac2, igrac1) + 8 * moj_broj_figura(igrac1) + 7 * otvoren_mill(igrac1, igrac2) + 42 * dupli_mill(igrac1) + 1086 * pobeda(igrac2, igrac1)
-    broj2 = 43 * moj_broj_mill(igrac2) + 10 * broj_blokiranih_figura_protivnika(igrac1, igrac2) + 8 * moj_broj_figura(igrac2) + 7 * otvoren_mill(igrac2, igrac1) + 42 * dupli_mill(igrac2) + 1086 * pobeda(igrac1, igrac2)
+    broj1 = hash_map_2[1] * moj_broj_mill(igrac1) + hash_map_2[2] * broj_blokiranih_figura_protivnika(igrac2, igrac1) + hash_map_2[3] * moj_broj_figura(igrac1) + hash_map_2[4] * otvoren_mill(igrac1, igrac2) + hash_map_2[5] * dupli_mill(igrac1) + hash_map_2[6] * pobeda(igrac2, igrac1)
+    broj2 = hash_map_2[1] * moj_broj_mill(igrac2) + hash_map_2[2] * broj_blokiranih_figura_protivnika(igrac1, igrac2) + hash_map_2[3] * moj_broj_figura(igrac2) + hash_map_2[4] * otvoren_mill(igrac2, igrac1) + hash_map_2[5] * dupli_mill(igrac2) + hash_map_2[6] * pobeda(igrac1, igrac2)
     return broj1-broj2
-
-#####test2###### !!!!!DODAJ 42 KADA SE POVEZU 3
-# def heruistika_faza1(igrac1, igrac2):
-#     broj1 = 26 * moj_broj_mill(igrac1) + 1 * broj_blokiranih_figura_protivnika(igrac2, igrac1) + 6 * moj_broj_figura(igrac1) + 21 * potencijalni_mill(igrac1, igrac2) + 7 * dupli_potencijalni_mill(igrac2, igrac1)
-#     broj2 = 26 * moj_broj_mill(igrac2) + 1 * broj_blokiranih_figura_protivnika(igrac1, igrac2) + 6 * moj_broj_figura(igrac2) + 21 * potencijalni_mill(igrac2, igrac1) + 7 * dupli_potencijalni_mill(igrac1, igrac2)
-#     return broj1- broj2
-
-# def heruistika_faza2(igrac1, igrac2):
-#     broj1 = 28 * moj_broj_mill(igrac1) + 16 * broj_blokiranih_figura_protivnika(igrac2, igrac1) + 8 * moj_broj_figura(igrac1) + 24 * otvoren_mill(igrac1, igrac2) + 19 * dupli_mill(igrac1) + 1086 * pobeda(igrac2, igrac1)
-#     broj2 = 28 * moj_broj_mill(igrac2) + 16 * broj_blokiranih_figura_protivnika(igrac1, igrac2) + 8 * moj_broj_figura(igrac2) + 24 * otvoren_mill(igrac2, igrac1) + 19 * dupli_mill(igrac2) + 1086 * pobeda(igrac1, igrac2)
-#     return broj1-broj2
-

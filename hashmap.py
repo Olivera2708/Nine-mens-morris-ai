@@ -102,84 +102,6 @@ class HashMap(object):
     def _bucket_delitem(self, index, key):
         raise NotImplementedError()
 
-class ChainedHashMap(HashMap):
-    """
-    Klasa modeluje heš mapu koja kolizije rešava ulančavanjem
-    """
-    def _bucket_getitem(self, i, key):
-        """
-        Pristup elementu u okviru bucketa
-
-        Metoda najpre pristupa bucketu sa zadatim indeksom. Ukoliko
-        bucket postoji, pretražuje se. Ako je element pronađen metoda
-        vraća njegovu vrednostu, dok se u suprotnom podiže odgovarajući
-        izuzetak.
-
-        Argumenti:
-        - `i`: indeks bucketa
-        - `key`: ključ elementa
-        """
-        bucket = self._data[i]
-        if bucket is None:
-            raise KeyError('Ne postoji element sa traženim ključem.')
-
-        return bucket[key]
-
-    def _bucket_setitem(self, bucket_index, key, value):
-        """
-        Postavljanje vrednosti elementa sa zadatim ključem
-
-        Metoda najpre pronalazi bucket sa zadatim indeksom, a zatim
-        dodaje novi element ili ažurira postojeći na osnovu zadatog
-        ključa. Ukoliko bucket ne postoji, kreira se novi.
-
-        Argumenti:
-        - `i`: indeks bucketa
-        - `key`: ključ elementa
-        - `value`: vrednost elementa
-        """
-        bucket = self._data[bucket_index]
-        if bucket is None:
-            self._data[bucket_index] = Map()
-
-        # broj elemenata u mapi se menja samo u slučaju da je došlo do
-        # dodavanja, dok ažuriranje ne menja broj elemenata
-        current_size = len(self._data[bucket_index])
-        self._data[bucket_index][key] = value
-        if len(self._data[bucket_index]) > current_size:
-            self._size += 1
-
-    def _bucket_delitem(self, bucket_index, key):
-        """
-        Brisanje elementa sa zadatim ključem
-
-        Metoda najpre pristupa bucketu sa zadatim indeksom. Ukoliko
-        bucket postoji, pretražuje se. Ako je element pronađen vrši
-        se njegovo brisanje, u suprotnom se podiže odgovarajući
-        izuzetak.
-
-        Argumenti:
-        - `i`: indeks bucketa
-        - `key`: ključ elementa
-        """
-        bucket = self._data[bucket_index]
-        if bucket is None:
-            raise KeyError('Ne postoji element sa traženim ključem.')
-
-        del bucket[key]
-
-    def __iter__(self):
-        for bucket in self._data:
-            if bucket is not None:
-                for key in bucket:
-                    yield key
-
-    def items(self):
-        for bucket in self._data:
-            if bucket is not None:
-                for key, value in bucket.items():
-                    yield key, value
-
 
 class LinearHashMap(HashMap):
     """
@@ -287,31 +209,6 @@ class LinearHashMap(HashMap):
 
 
 if __name__ == '__main__':
-    print("\nChained Hash Map\n---------------------")
-    hash_map = ChainedHashMap()
-    hash_map[3] = 10
-    hash_map[2] = 11
-    hash_map[55] = 11
-    hash_map[43] = 11
-    hash_map[24] = 11
-    hash_map[19] = 11
-    hash_map[190] = 11
-
-
-    print('Inicijalno dodavanje')
-    for item in hash_map:
-        print(item, hash_map[item])
-
-    print('Izmena vrednosti')
-    hash_map[3] = 5
-    for item in hash_map:
-        print(item, hash_map[item])
-
-    print('Brisanje elementa')
-    del hash_map[2]
-    for item in hash_map:
-        print(item, hash_map[item])
-
     print("\nLinear Hash Map\n---------------------")
     hash_map = LinearHashMap()
     hash_map[3] = 10
@@ -330,6 +227,7 @@ if __name__ == '__main__':
     del hash_map[2]
     for item in hash_map:
         print(item, hash_map[item])
+
 
 
 
