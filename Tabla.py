@@ -158,7 +158,7 @@ def moguc_potez(igrac1, igrac2, mesto):
     for mogucnost in susedna_polja(mesto):
         if jel_prazno_skroz(igrac1, igrac2, mogucnost):
             lista_mogucih.append(mogucnost)
-    return lista_mogucih
+    return tuple(lista_mogucih)
 
 def jel_mill(igrac, mesto):
     svi_mill = (((10,22),(2,3)), ((1,3),(5,8)), ((1,2),(15,24)), \

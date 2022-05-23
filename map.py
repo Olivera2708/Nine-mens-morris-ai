@@ -1,8 +1,3 @@
-"""
-Modul sadrži implementaciju asocijativnog niza
-"""
-
-
 class MapElement(object):
     """
     Klasa modeluje element asocijativnog niza
