@@ -1,6 +1,5 @@
 from Tabla import *
 from minimax import *
-from timeit import default_timer as timer
 from hashmap import *
 
 def faza1_igrac():
@@ -38,7 +37,7 @@ def faza1_ai(i):
         dugme.config(state="disabled")
 
     start = timer()
-    sledeci = sledeci_potez_faza1(tabla.a, tabla.b, 3, i, True)
+    sledeci = sledeci_potez_faza1(tabla.a, tabla.b, 4, i, True)
     end = timer()
     print(f"Kompjuter vreme -> {end-start}")
     tabla.postavi(2, sledeci[0])
@@ -46,8 +45,8 @@ def faza1_ai(i):
     if jel_mill(tabla.b, sledeci[0])[0]:
         tabla.ukloni(1, sledeci[1])
         tabla.napisi_poruku(f"Kompjuter je uklonio vašu figuru\n")
-                
     
+
 
 def faza1_2(prva, druga, *args):
     tabla.napisi_poruku("Protivnik je na redu\n")
@@ -122,7 +121,7 @@ def faza2_ai():
     tabla.update()
     
     start = timer()
-    sledeci = sledeci_potez_faza2(tabla.a, tabla.b, 4, True)
+    sledeci = sledeci_potez_faza2(tabla.a, tabla.b, 5, True)
     end = timer()
     print(f"Kompjuter vreme -> {end-start}")
     tabla.ukloni(2, sledeci[0])
@@ -133,7 +132,6 @@ def faza2_ai():
         tabla.ukloni(1, sledeci[2])
         tabla.napisi_poruku(f"Kompjuter je uklonio vašu figuru\n")
         
-
     #provera jel gotovo
     if jel_gotovo(tabla.a, tabla.b):
         tabla.napisi_poruku("IZGUBILI STE")
@@ -165,7 +163,7 @@ def gotovo():
 
 nije_kraj = True
 tabla = Tabla()
-max_poteza = 50
+max_poteza = 30
 
 if tabla.pocetak.get() == 1:
     tabla.napisi_poruku("PRVA FAZA\n")

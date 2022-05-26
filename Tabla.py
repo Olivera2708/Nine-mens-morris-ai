@@ -191,7 +191,7 @@ def jel_gotovo(igrac1, igrac2):
         return True
 
     for i in moja_polja(igrac1):
-        if moguc_potez(igrac1, igrac2, i) != []:
+        if moguc_potez(igrac1, igrac2, i) != ():
             return False
     return True
 

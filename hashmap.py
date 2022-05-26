@@ -2,7 +2,7 @@ import random
 from map import MapElement
 
 class HashMap(object):
-    def __init__(self, capacity=8):
+    def __init__(self, capacity=100000):
         self._data = capacity * [None]
         self._capacity = capacity
         self._size = 0
@@ -84,8 +84,8 @@ class LinearHashMap(HashMap):
     def _bucket_getitem(self, bucket_index, key):
         found, index = self._find_bucket(bucket_index, key)
         if not found:
-            raise KeyError('Ne postoji element sa traženim ključem.')
-        return self._data[index].value
+            return False, 0
+        return True, self._data[index].value
 
     def _bucket_setitem(self, bucket_index, key, value):
         found, available_bucket_index = self._find_bucket(bucket_index, key)

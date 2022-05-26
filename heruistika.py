@@ -1,19 +1,4 @@
 from Tabla import *
-from hashmap import LinearHashMap
-
-
-koeficijent = LinearHashMap()
-koeficijent["millovi1"] = 26
-koeficijent["blokirane1"] = 1
-koeficijent["figure1"] = 6
-koeficijent["potencijalni mill"] = 12
-koeficijent["dupli potencijalni mill"] = 7
-koeficijent["millovi2"] = 43
-koeficijent["blokirane2"] = 10
-koeficijent["figure2"] = 8
-koeficijent["otvoren"] = 7
-koeficijent["dupli mill"] = 42
-koeficijent["pobeda"] = 1086
 
 #broj tri povezane od igraca
 def moj_broj_mill(ja):
@@ -94,11 +79,11 @@ def pobeda(ja, protivnik):
 
 
 def heruistika_faza1(igrac1, igrac2):
-    broj1 = koeficijent["millovi1"] * moj_broj_mill(igrac1) + koeficijent["blokirane1"] * broj_blokiranih_figura_protivnika(igrac2, igrac1) + koeficijent["figure1"] * moj_broj_figura(igrac1) + koeficijent["potencijalni mill"] * potencijalni_mill(igrac1, igrac2) + koeficijent["dupli potencijalni mill"] * dupli_potencijalni_mill(igrac2, igrac1)
-    broj2 = koeficijent["millovi1"] * moj_broj_mill(igrac2) + koeficijent["blokirane1"] * broj_blokiranih_figura_protivnika(igrac1, igrac2) + koeficijent["figure1"] * moj_broj_figura(igrac2) + koeficijent["potencijalni mill"] * potencijalni_mill(igrac2, igrac1) + koeficijent["dupli potencijalni mill"] * dupli_potencijalni_mill(igrac1, igrac2)
+    broj1 = 26 * moj_broj_mill(igrac1) + 10 * broj_blokiranih_figura_protivnika(igrac2, igrac1) + 6 * moj_broj_figura(igrac1) + 12 * potencijalni_mill(igrac1, igrac2) + 7 * dupli_potencijalni_mill(igrac2, igrac1)
+    broj2 = 26 * moj_broj_mill(igrac2) + 10 * broj_blokiranih_figura_protivnika(igrac1, igrac2) + 6 * moj_broj_figura(igrac2) + 12 * potencijalni_mill(igrac2, igrac1) + 7 * dupli_potencijalni_mill(igrac1, igrac2)
     return broj1 - broj2
 
 def heruistika_faza2(igrac1, igrac2):
-    broj1 = koeficijent["millovi2"] * moj_broj_mill(igrac1) + koeficijent["blokirane2"] * broj_blokiranih_figura_protivnika(igrac2, igrac1) + koeficijent["figure2"] * moj_broj_figura(igrac1) + koeficijent["otvoren"] * otvoren_mill(igrac1, igrac2) + koeficijent["dupli mill"] * dupli_mill(igrac1) + koeficijent["pobeda"] * pobeda(igrac2, igrac1)
-    broj2 = koeficijent["millovi2"] * moj_broj_mill(igrac2) + koeficijent["blokirane2"] * broj_blokiranih_figura_protivnika(igrac1, igrac2) + koeficijent["figure2"] * moj_broj_figura(igrac2) + koeficijent["otvoren"] * otvoren_mill(igrac2, igrac1) + koeficijent["dupli mill"] * dupli_mill(igrac2) + koeficijent["pobeda"] * pobeda(igrac1, igrac2)
+    broj1 = 43 * moj_broj_mill(igrac1) + 10 * broj_blokiranih_figura_protivnika(igrac2, igrac1) + 8 * moj_broj_figura(igrac1) + 7 * otvoren_mill(igrac1, igrac2) + 42 * dupli_mill(igrac1) + 1086 * pobeda(igrac2, igrac1)
+    broj2 = 43 * moj_broj_mill(igrac2) + 10 * broj_blokiranih_figura_protivnika(igrac1, igrac2) + 8 * moj_broj_figura(igrac2) + 7 * otvoren_mill(igrac2, igrac1) + 42 * dupli_mill(igrac2) + 1086 * pobeda(igrac1, igrac2)
     return broj1 - broj2
