@@ -1,7 +1,6 @@
 from Tabla import *
 from hashmap import LinearHashMap
 from heruistika import *
-from timeit import default_timer as timer
 
 hashmap_faza1 = LinearHashMap()
 hashmap_faza2 = LinearHashMap()
