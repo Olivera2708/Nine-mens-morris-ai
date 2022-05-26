@@ -79,8 +79,8 @@ def pobeda(ja, protivnik):
 
 
 def heruistika_faza1(igrac1, igrac2):
-    broj1 = 26 * moj_broj_mill(igrac1) + 10 * broj_blokiranih_figura_protivnika(igrac2, igrac1) + 6 * moj_broj_figura(igrac1) + 12 * potencijalni_mill(igrac1, igrac2) + 7 * dupli_potencijalni_mill(igrac2, igrac1)
-    broj2 = 26 * moj_broj_mill(igrac2) + 10 * broj_blokiranih_figura_protivnika(igrac1, igrac2) + 6 * moj_broj_figura(igrac2) + 12 * potencijalni_mill(igrac2, igrac1) + 7 * dupli_potencijalni_mill(igrac1, igrac2)
+    broj1 = 26 * moj_broj_mill(igrac1) + 1 * broj_blokiranih_figura_protivnika(igrac2, igrac1) + 6 * moj_broj_figura(igrac1) + 12 * potencijalni_mill(igrac1, igrac2) + 7 * dupli_potencijalni_mill(igrac2, igrac1)
+    broj2 = 26 * moj_broj_mill(igrac2) + 1 * broj_blokiranih_figura_protivnika(igrac1, igrac2) + 6 * moj_broj_figura(igrac2) + 12 * potencijalni_mill(igrac2, igrac1) + 7 * dupli_potencijalni_mill(igrac1, igrac2)
     return broj1 - broj2
 
 def heruistika_faza2(igrac1, igrac2):

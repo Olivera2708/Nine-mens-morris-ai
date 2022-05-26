@@ -1,6 +1,7 @@
 from Tabla import *
 from minimax import *
 from hashmap import *
+from timeit import default_timer as timer
 
 def faza1_igrac():
     for dugme in tabla.dugmici:
