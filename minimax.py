@@ -117,6 +117,7 @@ def sledeci_potez_faza2(a, b, dubina, max_igrac):
 
                     else:
                         rezultat = minimax_faza2(a, bx, dubina-1, float('-inf'), float('inf'), False)
+                        print(f"Da postavim {i} na {j} -> {rezultat}")
                         hashmap_faza2[(a, bx)] = rezultat
                         if rezultat > maksimum:
                             maksimum = rezultat
@@ -133,9 +134,9 @@ def minimax_faza2(a, b, dubina, alfa, beta, max_igrac):
     if dubina == 0:
         return heruistika_faza2(b, a)
     if jel_gotovo(a, b):
-        return dubina + 100000
+        return dubina + 2000
     if jel_gotovo(b, a):
-        return -dubina - 100000
+        return  - dubina - 2000
 
     if max_igrac:
         maksimum = float('-inf')
