@@ -2,7 +2,7 @@ import random
 from map import MapElement
 
 class HashMap(object):
-    def __init__(self, capacity=100000):
+    def __init__(self, capacity=10000):
         self._data = capacity * [None]
         self._capacity = capacity
         self._size = 0

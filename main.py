@@ -151,10 +151,10 @@ def faza2(prva, druga):
     return True
 
 def gotovo():
-    if jel_gotovo(tabla.b, tabla.a):
+    if jel_gotovo(tabla.a, tabla.b):
         tabla.napisi_poruku("IZGUBILI STE")
         return False
-    if jel_gotovo(tabla.a, tabla.b):
+    if jel_gotovo(tabla.b, tabla.a):
         tabla.napisi_poruku("POBEDILI STE")
         return False
     return True
