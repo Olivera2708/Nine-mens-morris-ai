@@ -18,7 +18,7 @@ def sledeci_potez_faza1(a, b, dubina, broj_postavljenih, max_igrac):
                 for j in moja_polja(a):
                     if moze_da_se_ukloni(a, j):
                         ax = ukloni(ax, j)
-                        rezultat = minimax_faza1(ax, bx, dubina-1, float('-inf'), float('inf'), False, broj_postavljenih+1) + 18
+                        rezultat = minimax_faza1(ax, bx, dubina-1, float('-inf'), float('inf'), False, broj_postavljenih+1) + 50
                         hashmap_faza1[(ax, bx)] = rezultat
                         if rezultat > maksimum:
                             maksimum = rezultat
@@ -54,7 +54,7 @@ def minimax_faza1(a, b, dubina, alfa, beta, max_igrac, broj_postavljenih):
                 for j in moja_polja(a):
                     if moze_da_se_ukloni(a, j):
                         ax = ukloni(ax, j)
-                        rezultat = minimax_faza1(ax, bx, dubina-1, alfa, beta, False, broj_postavljenih+1) + 18
+                        rezultat = minimax_faza1(ax, bx, dubina-1, alfa, beta, False, broj_postavljenih+1) + 50
                         maksimum = max(rezultat, maksimum)
                         alfa = max(alfa, rezultat)
                         if beta <= alfa:
@@ -78,7 +78,7 @@ def minimax_faza1(a, b, dubina, alfa, beta, max_igrac, broj_postavljenih):
                 for j in moja_polja(b):
                     if moze_da_se_ukloni(b, j):
                         bx = ukloni(bx, j)
-                        rezultat = minimax_faza1(ax, bx, dubina-1, alfa, beta, True, broj_postavljenih+1) + 18
+                        rezultat = minimax_faza1(ax, bx, dubina-1, alfa, beta, True, broj_postavljenih+1) + 50
                         minimum = min(rezultat, minimum)
                         beta = min(beta, rezultat)
                         if beta <= alfa:
@@ -109,7 +109,8 @@ def sledeci_potez_faza2(a, b, dubina, max_igrac):
                         for k in moja_polja(a):
                             if moze_da_se_ukloni(a, k):
                                 ax = ukloni(ax, k)
-                                rezultat = minimax_faza2(ax, bx, dubina-1, float('-inf'), float('inf'), False) + 14
+                                rezultat = minimax_faza2(ax, bx, dubina-1, float('-inf'), float('inf'), False) + 40
+                                print(f"Da postavim {i} na {j} i uklonim {k} -> {rezultat}")
                                 hashmap_faza2[(ax, bx)] = rezultat
                                 if rezultat > maksimum:
                                     maksimum = rezultat
@@ -153,7 +154,7 @@ def minimax_faza2(a, b, dubina, alfa, beta, max_igrac):
                         for j in moja_polja(a):
                             if moze_da_se_ukloni(a, j):
                                 ax = ukloni(ax, j)
-                                rezultat = minimax_faza2(ax, bx, dubina-1, alfa, beta, False) + 14
+                                rezultat = minimax_faza2(ax, bx, dubina-1, alfa, beta, False) + 40
                                 maksimum = max(rezultat, maksimum)
                                 alfa = max(alfa, rezultat)
                                 if beta <= alfa:
@@ -181,7 +182,7 @@ def minimax_faza2(a, b, dubina, alfa, beta, max_igrac):
                         for j in moja_polja(b):
                             if moze_da_se_ukloni(b, j):
                                 bx = ukloni(bx, j)
-                                rezultat = minimax_faza2(ax, bx, dubina-1, alfa, beta, True) + 14
+                                rezultat = minimax_faza2(ax, bx, dubina-1, alfa, beta, True) + 40
                                 minimum = min(rezultat, minimum)
                                 beta = min(beta, rezultat)
                                 if beta <= alfa:
