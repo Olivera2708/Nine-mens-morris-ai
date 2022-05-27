@@ -1,13 +1,11 @@
 from Tabla import *
 from hashmap import LinearHashMap
-from heruistika import *
+from heuristika import *
 
 hashmap_faza1 = LinearHashMap()
 hashmap_faza2 = LinearHashMap()
 
 def sledeci_potez_faza1(a, b, dubina, broj_postavljenih, max_igrac):
-    # for item in hashmap:
-    #     print(item, hashmap[item])
     if max_igrac:
         maksimum = float('-inf')
         najbolji = None #najbolji potez
@@ -31,6 +29,7 @@ def sledeci_potez_faza1(a, b, dubina, broj_postavljenih, max_igrac):
                 if rezultat > maksimum:
                     maksimum = rezultat
                     najbolji = (i, 0)
+    print(maksimum)
     return najbolji
 
 def minimax_faza1(a, b, dubina, alfa, beta, max_igrac, broj_postavljenih):
@@ -56,14 +55,12 @@ def minimax_faza1(a, b, dubina, alfa, beta, max_igrac, broj_postavljenih):
                     if moze_da_se_ukloni(a, j):
                         ax = ukloni(ax, j)
                         rezultat = minimax_faza1(ax, bx, dubina-1, alfa, beta, False, broj_postavljenih+1) + 18
-                        hashmap_faza1[(ax, bx)] = rezultat
                         maksimum = max(rezultat, maksimum)
                         alfa = max(alfa, rezultat)
                         if beta <= alfa:
                             break
             else:
                 rezultat = minimax_faza1(a, bx, dubina-1, alfa, beta, False, broj_postavljenih+1)
-                hashmap_faza1[(a, bx)] = rezultat
                 maksimum = max(rezultat, maksimum)
                 alfa = max(alfa, rezultat)
                 if beta <= alfa:
@@ -82,14 +79,12 @@ def minimax_faza1(a, b, dubina, alfa, beta, max_igrac, broj_postavljenih):
                     if moze_da_se_ukloni(b, j):
                         bx = ukloni(bx, j)
                         rezultat = minimax_faza1(ax, bx, dubina-1, alfa, beta, True, broj_postavljenih+1) + 18
-                        hashmap_faza1[(ax, bx)] = rezultat
                         minimum = min(rezultat, minimum)
                         beta = min(beta, rezultat)
                         if beta <= alfa:
                             break
             else:
                 rezultat = minimax_faza1(ax, b, dubina-1, alfa, beta, True, broj_postavljenih+1)
-                hashmap_faza1[(ax, b)] = rezultat
                 minimum = min(rezultat, minimum)
                 beta = min(beta, rezultat)
                 if beta <= alfa:
@@ -103,7 +98,7 @@ def sledeci_potez_faza2(a, b, dubina, max_igrac):
         najbolji = None #najbolji potez
         for i in moja_polja(b):
             mogucnosti = moguc_potez(a, b, i)
-            if mogucnosti != []:
+            if mogucnosti != ():
                 ax = a
                 bx = b
                 bx = ukloni(bx, i)
@@ -146,7 +141,7 @@ def minimax_faza2(a, b, dubina, alfa, beta, max_igrac):
         maksimum = float('-inf')
         for i in moja_polja(b):
             mogucnosti = moguc_potez(a, b, i)
-            if mogucnosti != []:
+            if mogucnosti != ():
                 ax = a
                 bx = b
                 bx = ukloni(bx, i)
@@ -158,14 +153,12 @@ def minimax_faza2(a, b, dubina, alfa, beta, max_igrac):
                             if moze_da_se_ukloni(a, j):
                                 ax = ukloni(ax, j)
                                 rezultat = minimax_faza2(ax, bx, dubina-1, alfa, beta, False) + 14
-                                hashmap_faza2[(ax, bx)] = rezultat
                                 maksimum = max(rezultat, maksimum)
                                 alfa = max(alfa, rezultat)
                                 if beta <= alfa:
                                     break
                     else:
                         rezultat = minimax_faza2(ax, bx, dubina-1, alfa, beta, False)
-                        hashmap_faza2[(ax, bx)] = rezultat
                         maksimum = max(rezultat, maksimum)
                         alfa = max(alfa, rezultat)
                         if beta <= alfa:
@@ -176,7 +169,7 @@ def minimax_faza2(a, b, dubina, alfa, beta, max_igrac):
         minimum = float('inf')
         for i in moja_polja(a):
             mogucnosti = moguc_potez(a, b, i)
-            if mogucnosti != []:
+            if mogucnosti != ():
                 ax = a
                 bx = b
                 ax = ukloni(ax, i)
@@ -188,14 +181,12 @@ def minimax_faza2(a, b, dubina, alfa, beta, max_igrac):
                             if moze_da_se_ukloni(b, j):
                                 bx = ukloni(bx, j)
                                 rezultat = minimax_faza2(ax, bx, dubina-1, alfa, beta, True) + 14
-                                hashmap_faza2[(ax, bx)] = rezultat
                                 minimum = min(rezultat, minimum)
                                 beta = min(beta, rezultat)
                                 if beta <= alfa:
                                     break
                     else:
                         rezultat = minimax_faza2(ax, bx, dubina-1, alfa, beta, True)
-                        hashmap_faza2[(ax, bx)] = rezultat
                         minimum = min(rezultat, minimum)
                         beta = min(beta, rezultat)
                         if beta <= alfa:
