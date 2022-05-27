@@ -38,7 +38,7 @@ def faza1_ai(i):
         dugme.config(state="disabled")
 
     start = timer()
-    sledeci = sledeci_potez_faza1(tabla.a, tabla.b, 4, i, True)
+    sledeci = sledeci_potez_faza1(tabla.a, tabla.b, 3, i, True)
     end = timer()
     print(f"Kompjuter vreme -> {end-start}")
     tabla.postavi(2, sledeci[0])
@@ -122,7 +122,7 @@ def faza2_ai():
     tabla.update()
     
     start = timer()
-    sledeci = sledeci_potez_faza2(tabla.a, tabla.b, 5, True)
+    sledeci = sledeci_potez_faza2(tabla.a, tabla.b, 4, True)
     end = timer()
     print(f"Kompjuter vreme -> {end-start}")
     tabla.ukloni(2, sledeci[0])
@@ -174,6 +174,9 @@ if tabla.pocetak.get() == 1:
     #jel gotovo
     nije_kraj = gotovo()
     while nije_kraj or max_poteza == 0:
+        if max_poteza == 0:
+            tabla.napisi_poruku("NEREŠENO")
+            break
         max_poteza -= 1
         nije_kraj = faza2(faza2_igrac, faza2_ai)
 else:
@@ -183,7 +186,10 @@ else:
     tabla.napisi_poruku("DRUGA FAZA\n")
     #jel gotovo
     nije_kraj = gotovo()
-    while nije_kraj or max_poteza == 0:
+    while nije_kraj:
+        if max_poteza == 0:
+            tabla.napisi_poruku("NEREŠENO")
+            break
         max_poteza -= 1
         nije_kraj = faza2(faza2_ai, faza2_igrac)
 
