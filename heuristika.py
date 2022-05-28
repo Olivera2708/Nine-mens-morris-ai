@@ -95,13 +95,12 @@ def broj_mogucih_poteza(ja, protivnik):
         broj += len(moguc_potez(ja, protivnik, i))
     return broj
 
-
 def heruistika_faza1(igrac1, igrac2):
     broj1 = 26 * moj_broj_mill(igrac1) + 10 * broj_blokiranih_figura_protivnika(igrac2, igrac1) + 6 * moj_broj_figura(igrac1) + 12 * potencijalni_mill(igrac1, igrac2) + 7 * dupli_potencijalni_mill(igrac2, igrac1) + 50 * broj_blokiranih_mill(igrac1, igrac2) + broj_mogucih_poteza(igrac1, igrac2) 
     broj2 = 26 * moj_broj_mill(igrac2) + 10 * broj_blokiranih_figura_protivnika(igrac1, igrac2) + 6 * moj_broj_figura(igrac2) + 12 * potencijalni_mill(igrac2, igrac1) + 7 * dupli_potencijalni_mill(igrac1, igrac2) + 50 * broj_blokiranih_mill(igrac2, igrac1) + broj_mogucih_poteza(igrac2, igrac1)
     return broj1 - broj2
 
 def heruistika_faza2(igrac1, igrac2):
-    broj1 = 43 * moj_broj_mill(igrac1) + 15 * broj_blokiranih_figura_protivnika(igrac2, igrac1) + 8 * moj_broj_figura(igrac1) + 70 * otvoren_mill(igrac1, igrac2) + 42 * dupli_mill(igrac1) + 1200 * pobeda(igrac2, igrac1) + 50 * broj_blokiranih_mill(igrac1, igrac2) + broj_mogucih_poteza(igrac1, igrac2)
-    broj2 = 43 * moj_broj_mill(igrac2) + 15 * broj_blokiranih_figura_protivnika(igrac1, igrac2) + 8 * moj_broj_figura(igrac2) + 70 * otvoren_mill(igrac2, igrac1) + 42 * dupli_mill(igrac2) + 1200 * pobeda(igrac1, igrac2) + 50 * broj_blokiranih_mill(igrac2, igrac1) + broj_mogucih_poteza(igrac2, igrac1)
+    broj1 = 40 * moj_broj_mill(igrac1) + 15 * broj_blokiranih_figura_protivnika(igrac2, igrac1) + 8 * moj_broj_figura(igrac1) + 150 * otvoren_mill(igrac1, igrac2) + 56 * dupli_mill(igrac1) + 2000 * pobeda(igrac2, igrac1) + 50 * broj_blokiranih_mill(igrac1, igrac2) + broj_mogucih_poteza(igrac1, igrac2)
+    broj2 = 40 * moj_broj_mill(igrac2) + 15 * broj_blokiranih_figura_protivnika(igrac1, igrac2) + 8 * moj_broj_figura(igrac2) + 150 * otvoren_mill(igrac2, igrac1) + 56 * dupli_mill(igrac2) + 2000 * pobeda(igrac1, igrac2) + 50 * broj_blokiranih_mill(igrac2, igrac1) + broj_mogucih_poteza(igrac2, igrac1)
     return broj1 - broj2
