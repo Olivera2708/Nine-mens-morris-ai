@@ -29,7 +29,7 @@ class Tabla(Tk):
 
         canvas.create_rectangle(150, 150, 650, 650, outline="#8f7147", width=8)
         canvas.create_text(400, 80, text="Mice", fill="white", font=('Modern 36 bold'))
-        canvas.create_text(400, 300, text="Želim da počnem", fill="white", font=('Modern 24 bold'))
+        canvas.create_text(400, 300, text="Zelim da pocnem", fill="white", font=('Modern 24 bold'))
         korisnik_prvi = customtkinter.CTkButton(bg_color="#d9b179", fg_color="#8f7147", hover_color="#785a31", text="Prvi", text_font=('Modern 20 bold'), command=lambda: self.pocetak.set(1))
         korisnik_prvi.place(x=300, y=380, width=200, height=36)
         korisnik_drugi = customtkinter.CTkButton(bg_color="#d9b179", fg_color="#8f7147", hover_color="#785a31", text="Drugi", text_font=('Modern 20 bold'), command=lambda: self.pocetak.set(2))
