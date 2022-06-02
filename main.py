@@ -12,7 +12,7 @@ def faza1_igrac():
     #porveri jel mesto slobodno
     mesto = tabla.sacekaj.get()
     while not jel_prazno_skroz(tabla.a, tabla.b, mesto):
-        tabla.napisi_poruku("Ovo mesto je već zauzeto\n")
+        tabla.napisi_poruku("Ovo mesto je vec zauzeto\n")
         tabla.wait_variable(tabla.sacekaj)
         mesto = tabla.sacekaj.get()
 
@@ -21,11 +21,11 @@ def faza1_igrac():
 
     #proveri jel mill
     if jel_mill(tabla.a, mesto)[0]:
-        tabla.napisi_poruku("Ukloni figuru drugog igrača\n")
+        tabla.napisi_poruku("Ukloni figuru drugog igraca\n")
         tabla.wait_variable(tabla.sacekaj)
         mesto = tabla.sacekaj.get()
         while not moze_da_se_ukloni(tabla.b, mesto):
-            tabla.napisi_poruku("Nije moguće ukloniti ovu figuru\n")
+            tabla.napisi_poruku("Nije moguce ukloniti ovu figuru\n")
             tabla.wait_variable(tabla.sacekaj)
             mesto = tabla.sacekaj.get()
         tabla.ukloni(2, mesto)
@@ -45,7 +45,7 @@ def faza1_ai(i):
     #ukloni protivniku figuru ako je mill
     if jel_mill(tabla.b, sledeci[0])[0]:
         tabla.ukloni(1, sledeci[1])
-        tabla.napisi_poruku(f"Kompjuter je uklonio vašu figuru\n")
+        tabla.napisi_poruku(f"Kompjuter je uklonio vasu figuru\n")
     
 
 
@@ -76,11 +76,11 @@ def faza2_igrac():
     tabla.wait_variable(tabla.sacekaj)
     mesto_ukloni = tabla.sacekaj.get()
     while len(moguc_potez(tabla.a, tabla.b, mesto_ukloni)) == 0:
-        tabla.napisi_poruku("Figura ne može da se premesti\n")
+        tabla.napisi_poruku("Figura ne moze da se premesti\n")
         tabla.wait_variable(tabla.sacekaj)
         mesto_ukloni = tabla.sacekaj.get()
     while mesto_ukloni not in moja_polja(tabla.a):
-        tabla.napisi_poruku("Figura koju želite da pomerite nije vaša\n")
+        tabla.napisi_poruku("Figura koju zelite da pomerite nije vasa\n")
         tabla.wait_variable(tabla.sacekaj)
         mesto_ukloni = tabla.sacekaj.get()
     tabla.postavi_privremen(mesto_ukloni)
@@ -89,7 +89,7 @@ def faza2_igrac():
     tabla.wait_variable(tabla.sacekaj)
     mesto_dodaj = tabla.sacekaj.get()
     while not mesto_dodaj in moguc_potez(tabla.a, tabla.b, mesto_ukloni):
-        tabla.napisi_poruku("Figuru nije moguće pomeriti na ovo mesto\n")
+        tabla.napisi_poruku("Figuru nije moguce pomeriti na ovo mesto\n")
         tabla.wait_variable(tabla.sacekaj)
         mesto_dodaj = tabla.sacekaj.get()
     tabla.ukloni(1, mesto_ukloni)
@@ -97,11 +97,11 @@ def faza2_igrac():
 
     #proveri jel mill
     if jel_mill(tabla.a, mesto_dodaj)[0]:
-        tabla.napisi_poruku("Ukloni figuru drugog igrača\n")
+        tabla.napisi_poruku("Ukloni figuru drugog igraca\n")
         tabla.wait_variable(tabla.sacekaj)
         mesto = tabla.sacekaj.get()
         while not moze_da_se_ukloni(tabla.b, mesto):
-            tabla.napisi_poruku("Nije moguće ukloniti ovu figuru\n")
+            tabla.napisi_poruku("Nije moguce ukloniti ovu figuru\n")
             tabla.wait_variable(tabla.sacekaj)
             mesto = tabla.sacekaj.get()
         tabla.ukloni(2, mesto)
@@ -131,7 +131,7 @@ def faza2_ai():
     #ukloni protivniku figuru ako je mill
     if jel_mill(tabla.b, sledeci[1])[0]:
         tabla.ukloni(1, sledeci[2])
-        tabla.napisi_poruku(f"Kompjuter je uklonio vašu figuru\n")
+        tabla.napisi_poruku(f"Kompjuter je uklonio vasu figuru\n")
         
     #provera jel gotovo
     if jel_gotovo(tabla.a, tabla.b):
@@ -175,7 +175,7 @@ if tabla.pocetak.get() == 1:
     nije_kraj = gotovo()
     while nije_kraj or max_poteza == 0:
         if max_poteza == 0:
-            tabla.napisi_poruku("NEREŠENO")
+            tabla.napisi_poruku("NERESENO")
             break
         max_poteza -= 1
         nije_kraj = faza2(faza2_igrac, faza2_ai)
@@ -188,7 +188,7 @@ else:
     nije_kraj = gotovo()
     while nije_kraj:
         if max_poteza == 0:
-            tabla.napisi_poruku("NEREŠENO")
+            tabla.napisi_poruku("NERESENO")
             break
         max_poteza -= 1
         nije_kraj = faza2(faza2_ai, faza2_igrac)
