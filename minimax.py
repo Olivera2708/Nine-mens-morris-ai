@@ -18,14 +18,22 @@ def sledeci_potez_faza1(a, b, dubina, broj_postavljenih, max_igrac):
                 for j in moja_polja(a):
                     if moze_da_se_ukloni(a, j):
                         ax = ukloni(ax, j)
-                        rezultat = minimax_faza1(ax, bx, dubina-1, float('-inf'), float('inf'), False, broj_postavljenih+1) + 100
-                        hashmap_faza1[(ax, bx)] = rezultat
+                        postoji, broj = hashmap_faza1[(ax, bx)]
+                        if postoji:
+                            rezultat = broj
+                        else:
+                            rezultat = minimax_faza1(ax, bx, dubina-1, float('-inf'), float('inf'), False, broj_postavljenih+1) + 100
+                            hashmap_faza1[(ax, bx)] = rezultat
                         if rezultat > maksimum:
                             maksimum = rezultat
                             najbolji = (i, j)
             else:
-                rezultat = minimax_faza1(a, bx, dubina-1, float('-inf'), float('inf'), False, broj_postavljenih+1)
-                hashmap_faza1[(a, bx)] = rezultat
+                postoji, broj = hashmap_faza1[(a, bx)]
+                if postoji:
+                    rezultat = broj
+                else:
+                    rezultat = minimax_faza1(a, bx, dubina-1, float('-inf'), float('inf'), False, broj_postavljenih+1)
+                    hashmap_faza1[(a, bx)] = rezultat
                 if rezultat > maksimum:
                     maksimum = rezultat
                     najbolji = (i, 0)
@@ -109,18 +117,24 @@ def sledeci_potez_faza2(a, b, dubina, max_igrac):
                         for k in moja_polja(a):
                             if moze_da_se_ukloni(a, k):
                                 ax = ukloni(ax, k)
-                                rezultat = minimax_faza2(ax, bx, dubina-1, float('-inf'), float('inf'), False)
-                                rezultat += 1000
-                                print(f"Da postavim {i} na {j} i uklonim {k} -> {rezultat}")
-                                hashmap_faza2[(ax, bx)] = rezultat
+                                postoji, broj = hashmap_faza2[(ax, bx)]
+                                if postoji:
+                                    rezultat = broj
+                                else:
+                                    rezultat = minimax_faza2(ax, bx, dubina-1, float('-inf'), float('inf'), False)
+                                    rezultat += 1000
+                                    hashmap_faza2[(ax, bx)] = rezultat
                                 if rezultat > maksimum:
                                     maksimum = rezultat
                                     najbolji = (i, j, k)
 
                     else:
-                        rezultat = minimax_faza2(a, bx, dubina-1, float('-inf'), float('inf'), False)
-                        print(f"Da postavim {i} na {j} -> {rezultat}")
-                        hashmap_faza2[(a, bx)] = rezultat
+                        postoji, broj = hashmap_faza2[(a, b)]
+                        if postoji:
+                            rezultat = broj
+                        else:
+                            rezultat = minimax_faza2(a, bx, dubina-1, float('-inf'), float('inf'), False)
+                            hashmap_faza2[(a, bx)] = rezultat
                         if rezultat > maksimum:
                             maksimum = rezultat
                             najbolji = (i, j, 0)
