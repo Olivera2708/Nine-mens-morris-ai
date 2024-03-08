@@ -12,4 +12,4 @@ Nine Men's Morris requires strategic thinking and foresight, challenging players
 ## Implementation
 This Python implementation of Nine Men's Morris features an AI player with a graphical user interface (GUI). The AI bot employs the Minimax algorithm with Alpha-Beta pruning to make strategic decisions during gameplay.
 
-![Preview](images/preview.png)
+![Preview](slike/preview.png)
